@@ -9,6 +9,7 @@
     <string name="msg_ac_off">El aire acondicionado está apagado</string>
     <string name="msg_monitoring">Cuidando a tu mascota</string>
 
+    <string name="ac_set_to">A/C en %1$d%2$s</string>
     <string name="status_ac_on">AC Encendido</string>
     <string name="status_ac_off">AC Apagado</string>
     <string name="status_doors_locked">Puertas Cerradas</string>

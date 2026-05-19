@@ -14,71 +14,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:paddingTop="16dp"
-        android:paddingBottom="16dp"
-        android:paddingLeft="48dp"
-        android:paddingRight="48dp">
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp">
 
-        <!-- Top bar: settings -->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/settings_btn"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_settings"
-                android:padding="4dp"
-                android:background="?android:selectableItemBackgroundBorderless" />
-
-            <TextView
-                android:id="@+id/battery_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:textColor="#FF636E7B"
-                android:textSize="16sp"
-                android:visibility="gone" />
-        </RelativeLayout>
-
-        <!-- Center content -->
+        <!-- Left: Temperature area -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center">
-
-            <!-- Emoji Avatar -->
-            <TextView
-                android:id="@+id/avatar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🐾"
-                android:textSize="80sp"
-                android:layout_marginBottom="8dp"
-                android:includeFontPadding="false" />
 
             <!-- Temperature -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="8dp">
+                android:gravity="top">
 
                 <TextView
                     android:id="@+id/temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="--"
-                    android:textSize="160sp"
+                    android:textSize="240sp"
                     android:textColor="#FF1A1A2E"
                     android:fontFamily="sans-serif-thin"
                     android:includeFontPadding="false" />
@@ -88,87 +51,140 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="°C"
-                    android:textSize="48sp"
+                    android:textSize="64sp"
                     android:textColor="#FF636E7B"
                     android:fontFamily="sans-serif-light"
                     android:layout_marginStart="4dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_gravity="top" />
+                    android:layout_marginTop="32dp" />
             </LinearLayout>
 
-            <!-- Messages -->
+            <!-- AC set temp info -->
             <TextView
-                android:id="@+id/message"
+                android:id="@+id/ac_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="36sp"
-                android:textColor="#FF1A1A2E"
-                android:fontFamily="sans-serif-medium"
-                android:gravity="center"
-                android:layout_marginBottom="6dp" />
-
-            <TextView
-                android:id="@+id/sub_message"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="22sp"
+                android:textSize="26sp"
                 android:textColor="#FF636E7B"
                 android:fontFamily="sans-serif"
-                android:gravity="center" />
+                android:gravity="center"
+                android:layout_marginTop="4dp"
+                android:visibility="gone" />
         </LinearLayout>
 
-        <!-- Status bar -->
+        <!-- Right: Message + status area -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginTop="8dp">
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
 
-            <View
-                android:id="@+id/status_dot"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:background="@drawable/status_dot"
-                android:layout_marginEnd="10dp" />
+            <!-- Settings button (top-right) -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/status_ac"
+                <ImageView
+                    android:id="@+id/settings_btn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_settings"
+                    android:padding="4dp"
+                    android:background="?android:selectableItemBackgroundBorderless" />
+            </RelativeLayout>
+
+            <!-- Avatar + Message -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🐾"
+                    android:textSize="100sp"
+                    android:layout_marginBottom="16dp"
+                    android:includeFontPadding="false" />
+
+                <TextView
+                    android:id="@+id/message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="44sp"
+                    android:textColor="#FF1A1A2E"
+                    android:fontFamily="sans-serif-medium"
+                    android:gravity="center"
+                    android:layout_marginBottom="8dp" />
+
+                <TextView
+                    android:id="@+id/sub_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="26sp"
+                    android:textColor="#FF636E7B"
+                    android:fontFamily="sans-serif"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <!-- Status bar -->
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="#FF636E7B"
-                android:fontFamily="sans-serif-medium" />
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="8dp">
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="20dp"
-                android:background="#20000000"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp" />
+                <View
+                    android:id="@+id/status_dot"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/status_dot"
+                    android:layout_marginEnd="10dp" />
 
-            <TextView
-                android:id="@+id/status_doors"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="#FF636E7B"
-                android:fontFamily="sans-serif-medium" />
+                <TextView
+                    android:id="@+id/status_ac"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="#FF636E7B"
+                    android:fontFamily="sans-serif-medium" />
 
-            <View
-                android:layout_width="1dp"
-                android:layout_height="20dp"
-                android:background="#20000000"
-                android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp" />
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="24dp"
+                    android:background="#20000000"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginEnd="28dp" />
 
-            <TextView
-                android:id="@+id/status_timer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:textColor="#FF636E7B"
-                android:fontFamily="sans-serif-medium" />
+                <TextView
+                    android:id="@+id/status_doors"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="#FF636E7B"
+                    android:fontFamily="sans-serif-medium" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="24dp"
+                    android:background="#20000000"
+                    android:layout_marginStart="28dp"
+                    android:layout_marginEnd="28dp" />
+
+                <TextView
+                    android:id="@+id/status_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="24sp"
+                    android:textColor="#FF636E7B"
+                    android:fontFamily="sans-serif-medium" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

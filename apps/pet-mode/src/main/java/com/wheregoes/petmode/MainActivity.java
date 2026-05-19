@@ -41,6 +41,7 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
     private TextView avatarView;
     private TextView tempText;
     private TextView tempUnit;
+    private TextView acInfoText;
     private TextView messageText;
     private TextView subMessageText;
     private TextView statusAc;
@@ -118,6 +119,7 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
         statusAc = findViewById(R.id.status_ac);
         statusDoors = findViewById(R.id.status_doors);
         statusTimer = findViewById(R.id.status_timer);
+        acInfoText = findViewById(R.id.ac_info);
         settingsBtn = findViewById(R.id.settings_btn);
         statusDot = findViewById(R.id.status_dot);
 
@@ -137,6 +139,7 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
             rootLayout.setBackgroundColor(0xFF0A0E1A);
             tempText.setTextColor(Color.WHITE);
             tempUnit.setTextColor(0xFFB0B8C8);
+            acInfoText.setTextColor(0xFFB0B8C8);
             messageText.setTextColor(Color.WHITE);
             subMessageText.setTextColor(0xFFB0B8C8);
             statusAc.setTextColor(0xFFB0B8C8);
@@ -146,6 +149,7 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
             rootLayout.setBackgroundColor(0xFFF5F7FA);
             tempText.setTextColor(0xFF1A1A2E);
             tempUnit.setTextColor(0xFF636E7B);
+            acInfoText.setTextColor(0xFF636E7B);
             messageText.setTextColor(0xFF1A1A2E);
             subMessageText.setTextColor(0xFF636E7B);
             statusAc.setTextColor(0xFF636E7B);
@@ -164,17 +168,27 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
         boolean useFahrenheit = PetModeService.UNIT_FAHRENHEIT.equals(
                 prefs.getString(PetModeService.KEY_TEMP_UNIT, getDefaultUnit()));
 
+        String unitLabel = useFahrenheit ? "°F" : "°C";
         int temp = service.getCurrentTemp();
         if (temp != Integer.MIN_VALUE) {
             int displayTemp = useFahrenheit ? (temp * 9 / 5) + 32 : temp;
             String oldText = tempText.getText().toString();
             String newText = String.valueOf(displayTemp);
             tempText.setText(newText);
-            tempUnit.setText(useFahrenheit ? "°F" : "°C");
+            tempUnit.setText(unitLabel);
             if (!oldText.equals(newText) && !oldText.equals("--")) animateTempPulse();
         } else {
             tempText.setText("--");
-            tempUnit.setText(useFahrenheit ? "°F" : "°C");
+            tempUnit.setText(unitLabel);
+        }
+
+        int setTempC = service.getSetTemp();
+        if (setTempC != Integer.MIN_VALUE && service.isAcOn()) {
+            int displaySetTemp = useFahrenheit ? (setTempC * 9 / 5) + 32 : setTempC;
+            acInfoText.setText(getString(R.string.ac_set_to, displaySetTemp, unitLabel));
+            acInfoText.setVisibility(View.VISIBLE);
+        } else {
+            acInfoText.setVisibility(View.GONE);
         }
 
         if (hasPetName) {

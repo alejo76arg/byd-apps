@@ -9,6 +9,7 @@
     <string name="msg_ac_off">空调已关闭</string>
     <string name="msg_monitoring">正在看护您的宠物</string>
 
+    <string name="ac_set_to">空调设置 %1$d%2$s</string>
     <string name="status_ac_on">空调开启</string>
     <string name="status_ac_off">空调关闭</string>
     <string name="status_doors_locked">车门已锁</string>

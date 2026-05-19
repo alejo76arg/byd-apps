@@ -39,6 +39,7 @@ public class PetModeService extends Service implements
     private long startTime;
 
     private int currentTemp = Integer.MIN_VALUE;
+    private int setTemp = Integer.MIN_VALUE;
     private boolean acOn = false;
     private boolean climateAvailable = false;
     private boolean locked = false;
@@ -99,6 +100,7 @@ public class PetModeService extends Service implements
     void setStateCallback(StateCallback cb) { stateCallback = cb; }
 
     int getCurrentTemp() { return currentTemp; }
+    int getSetTemp() { return setTemp; }
     boolean isAcOn() { return acOn; }
     boolean isClimateAvailable() { return climateAvailable; }
     boolean isLocked() { return locked; }
@@ -118,6 +120,12 @@ public class PetModeService extends Service implements
     @Override
     public void onAcStatusChanged(boolean on) {
         acOn = on;
+        notifyStateChanged();
+    }
+
+    @Override
+    public void onSetTempChanged(int tempCelsius) {
+        setTemp = tempCelsius;
         notifyStateChanged();
     }
 

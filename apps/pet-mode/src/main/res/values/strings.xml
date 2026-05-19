@@ -9,6 +9,8 @@
     <string name="msg_ac_off">AC is currently off</string>
     <string name="msg_monitoring">Monitoring your pet</string>
 
+    <string name="ac_set_to">A/C set to %1$d%2$s</string>
+
     <string name="status_ac_on">AC On</string>
     <string name="status_ac_off">AC Off</string>
     <string name="status_doors_locked">Doors Locked</string>
