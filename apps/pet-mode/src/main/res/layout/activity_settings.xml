@@ -249,7 +249,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pet Mode v1.4.0"
+            android:text="Pet Mode v1.6.0"
             android:textSize="13sp"
             android:textColor="#FF9E9E9E"
             android:layout_marginTop="16dp" />

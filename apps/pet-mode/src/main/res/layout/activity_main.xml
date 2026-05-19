@@ -131,61 +131,95 @@
                     android:gravity="center" />
             </LinearLayout>
 
-            <!-- Status bar -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="8dp">
-
-                <View
-                    android:id="@+id/status_dot"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:background="@drawable/status_dot"
-                    android:layout_marginEnd="10dp" />
-
-                <TextView
-                    android:id="@+id/status_ac"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:textColor="#FF636E7B"
-                    android:fontFamily="sans-serif-medium" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="24dp"
-                    android:background="#20000000"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginEnd="28dp" />
-
-                <TextView
-                    android:id="@+id/status_doors"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:textColor="#FF636E7B"
-                    android:fontFamily="sans-serif-medium" />
-
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="24dp"
-                    android:background="#20000000"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginEnd="28dp" />
-
-                <TextView
-                    android:id="@+id/status_timer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="24sp"
-                    android:textColor="#FF636E7B"
-                    android:fontFamily="sans-serif-medium" />
-            </LinearLayout>
-
         </LinearLayout>
 
     </LinearLayout>
+
+    <!-- Status bar (full width, bottom) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_gravity="bottom"
+        android:paddingBottom="16dp"
+        android:paddingTop="8dp">
+
+        <View
+            android:id="@+id/status_dot"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="@drawable/status_dot"
+            android:layout_marginEnd="10dp" />
+
+        <TextView
+            android:id="@+id/status_ac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:textColor="#FF636E7B"
+            android:fontFamily="sans-serif-medium" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="32dp"
+            android:background="#20000000"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp" />
+
+        <TextView
+            android:id="@+id/status_doors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:textColor="#FF636E7B"
+            android:fontFamily="sans-serif-medium" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="32dp"
+            android:background="#20000000"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp" />
+
+        <TextView
+            android:id="@+id/status_battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:textColor="#FF636E7B"
+            android:fontFamily="sans-serif-medium"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/battery_divider"
+            android:layout_width="1dp"
+            android:layout_height="32dp"
+            android:background="#20000000"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/status_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:textColor="#FF636E7B"
+            android:fontFamily="sans-serif-medium" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/safety_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/alert_ac_off"
+        android:textSize="36sp"
+        android:textColor="#FFFFFFFF"
+        android:background="#FFE74C3C"
+        android:gravity="center"
+        android:padding="16dp"
+        android:fontFamily="sans-serif-bold"
+        android:layout_gravity="top"
+        android:visibility="gone" />
+
 </FrameLayout>

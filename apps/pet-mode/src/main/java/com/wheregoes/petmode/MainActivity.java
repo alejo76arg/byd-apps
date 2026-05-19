@@ -47,6 +47,9 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
     private TextView statusAc;
     private TextView statusDoors;
     private TextView statusTimer;
+    private TextView statusBattery;
+    private View batteryDivider;
+    private TextView safetyAlert;
     private View settingsBtn;
     private View statusDot;
     private int originalBrightnessMode = -1;
@@ -120,6 +123,9 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
         statusDoors = findViewById(R.id.status_doors);
         statusTimer = findViewById(R.id.status_timer);
         acInfoText = findViewById(R.id.ac_info);
+        statusBattery = findViewById(R.id.status_battery);
+        batteryDivider = findViewById(R.id.battery_divider);
+        safetyAlert = findViewById(R.id.safety_alert);
         settingsBtn = findViewById(R.id.settings_btn);
         statusDot = findViewById(R.id.status_dot);
 
@@ -144,6 +150,7 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
             subMessageText.setTextColor(0xFFB0B8C8);
             statusAc.setTextColor(0xFFB0B8C8);
             statusDoors.setTextColor(0xFFB0B8C8);
+            statusBattery.setTextColor(0xFFB0B8C8);
             statusTimer.setTextColor(0xFFB0B8C8);
         } else {
             rootLayout.setBackgroundColor(0xFFF5F7FA);
@@ -154,6 +161,7 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
             subMessageText.setTextColor(0xFF636E7B);
             statusAc.setTextColor(0xFF636E7B);
             statusDoors.setTextColor(0xFF636E7B);
+            statusBattery.setTextColor(0xFF636E7B);
             statusTimer.setTextColor(0xFF636E7B);
         }
         avatarView.setImageResource(getAvatarDrawable());
@@ -205,9 +213,20 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
             subMessageText.setText(R.string.msg_monitoring);
         }
 
-        statusAc.setText(service.isAcOn() ? getString(R.string.status_ac_on) :
-                getString(R.string.status_ac_off));
-        statusAc.setTextColor(service.isAcOn() ? 0xFF27AE60 : 0xFF636E7B);
+        int power = service.getPowerLevel();
+        if (power == 0) {
+            statusAc.setText(R.string.status_car_off);
+            statusAc.setTextColor(0xFFE74C3C);
+        } else if (service.isAcOn()) {
+            statusAc.setText(R.string.status_ac_on);
+            statusAc.setTextColor(0xFF27AE60);
+        } else {
+            statusAc.setText(R.string.status_ac_off);
+            statusAc.setTextColor(0xFFF39C12);
+        }
+
+        boolean acAlert = service.isClimateAvailable() && !service.isAcOn();
+        safetyAlert.setVisibility(acAlert ? View.VISIBLE : View.GONE);
 
         if (service.isAnyDoorOpen()) {
             statusDoors.setText(R.string.status_doors_open);
@@ -218,6 +237,19 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
         } else {
             statusDoors.setText(R.string.status_doors_unlocked);
             statusDoors.setTextColor(0xFFF39C12);
+        }
+
+        int battery = service.getBatteryLevel();
+        if (battery > 0) {
+            statusBattery.setText(getString(R.string.status_battery, battery));
+            if (battery > 50) statusBattery.setTextColor(0xFF27AE60);
+            else if (battery > 20) statusBattery.setTextColor(0xFFF39C12);
+            else statusBattery.setTextColor(0xFFE74C3C);
+            statusBattery.setVisibility(View.VISIBLE);
+            batteryDivider.setVisibility(View.VISIBLE);
+        } else {
+            statusBattery.setVisibility(View.GONE);
+            batteryDivider.setVisibility(View.GONE);
         }
 
         long millis = service.getActiveMillis();

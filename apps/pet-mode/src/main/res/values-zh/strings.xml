@@ -12,6 +12,9 @@
     <string name="outside_temp">室外: %1$d%2$s</string>
     <string name="status_ac_on">空调开启</string>
     <string name="status_ac_off">空调关闭</string>
+    <string name="status_car_off">车辆关闭</string>
+    <string name="status_battery">电池: %d%%</string>
+    <string name="alert_ac_off">警告：空调已关闭</string>
     <string name="status_doors_locked">车门已锁</string>
     <string name="status_doors_unlocked">车门未锁</string>
     <string name="status_doors_open">车门未关！</string>

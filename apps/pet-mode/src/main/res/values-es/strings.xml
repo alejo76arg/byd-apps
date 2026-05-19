@@ -12,6 +12,9 @@
     <string name="outside_temp">Exterior: %1$d%2$s</string>
     <string name="status_ac_on">AC Encendido</string>
     <string name="status_ac_off">AC Apagado</string>
+    <string name="status_car_off">Coche Apagado</string>
+    <string name="status_battery">Batería: %d%%</string>
+    <string name="alert_ac_off">ALERTA: A/C APAGADO</string>
     <string name="status_doors_locked">Puertas Cerradas</string>
     <string name="status_doors_unlocked">Puertas Abiertas</string>
     <string name="status_doors_open">¡Puerta Abierta!</string>
