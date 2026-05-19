@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF5F7FA">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="32dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="32dp">
+
+            <ImageView
+                android:id="@+id/back_btn"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_back"
+                android:padding="4dp"
+                android:background="?android:selectableItemBackgroundBorderless" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_title"
+                android:textSize="24sp"
+                android:textColor="#FF1A1A2E"
+                android:fontFamily="sans-serif-medium"
+                android:layout_marginStart="16dp" />
+        </LinearLayout>
+
+        <!-- Pet Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_pet_name"
+            android:textSize="14sp"
+            android:textColor="#FF636E7B"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/pet_name_input"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/input_background"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="18sp"
+            android:textColor="#FF1A1A2E"
+            android:singleLine="true"
+            android:layout_marginBottom="28dp" />
+
+        <!-- Avatar Selection -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_avatar"
+            android:textSize="14sp"
+            android:textColor="#FF636E7B"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="12dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="28dp">
+
+            <!-- Paw -->
+            <LinearLayout
+                android:id="@+id/avatar_paw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="24dp"
+                android:background="?android:selectableItemBackground"
+                android:padding="8dp">
+                <View
+                    android:id="@+id/avatar_paw_border"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="#FFE0E0E0"
+                    android:padding="3dp" />
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/ic_paw"
+                    android:layout_marginTop="-69dp"
+                    android:padding="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/avatar_paw"
+                    android:textSize="12sp"
+                    android:textColor="#FF636E7B"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Dog -->
+            <LinearLayout
+                android:id="@+id/avatar_dog"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginEnd="24dp"
+                android:background="?android:selectableItemBackground"
+                android:padding="8dp">
+                <View
+                    android:id="@+id/avatar_dog_border"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="#FFE0E0E0"
+                    android:padding="3dp" />
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/ic_dog"
+                    android:layout_marginTop="-69dp"
+                    android:padding="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/avatar_dog"
+                    android:textSize="12sp"
+                    android:textColor="#FF636E7B"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+
+            <!-- Cat -->
+            <LinearLayout
+                android:id="@+id/avatar_cat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="?android:selectableItemBackground"
+                android:padding="8dp">
+                <View
+                    android:id="@+id/avatar_cat_border"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:background="#FFE0E0E0"
+                    android:padding="3dp" />
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:src="@drawable/ic_cat"
+                    android:layout_marginTop="-69dp"
+                    android:padding="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/avatar_cat"
+                    android:textSize="12sp"
+                    android:textColor="#FF636E7B"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Temperature Unit -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/settings_temp_unit"
+            android:textSize="14sp"
+            android:textColor="#FF636E7B"
+            android:textAllCaps="true"
+            android:letterSpacing="0.1"
+            android:layout_marginBottom="8dp" />
+
+        <RadioGroup
+            android:id="@+id/temp_unit_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="28dp">
+
+            <RadioButton
+                android:id="@+id/unit_celsius"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="°C — Celsius"
+                android:textSize="16sp"
+                android:layout_marginEnd="32dp" />
+
+            <RadioButton
+                android:id="@+id/unit_fahrenheit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="°F — Fahrenheit"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+        <!-- Theme Toggle -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="28dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_dark_mode"
+                    android:textSize="16sp"
+                    android:textColor="#FF1A1A2E" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/settings_dark_mode_desc"
+                    android:textSize="13sp"
+                    android:textColor="#FF636E7B" />
+            </LinearLayout>
+
+            <Switch
+                android:id="@+id/theme_toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <!-- Version info -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pet Mode v1.0.0"
+            android:textSize="13sp"
+            android:textColor="#FF9E9E9E"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+</ScrollView>

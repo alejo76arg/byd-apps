@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">宠物模式</string>
+
+    <string name="default_pet_name">您的宠物</string>
+    <string name="msg_safe">别担心！%s 很安全</string>
+    <string name="msg_ac_on">空调已开启，温度舒适</string>
+    <string name="msg_ac_off">空调已关闭</string>
+    <string name="msg_monitoring">正在看护您的宠物</string>
+
+    <string name="status_ac_on">空调开启</string>
+    <string name="status_ac_off">空调关闭</string>
+    <string name="status_doors_locked">车门已锁</string>
+    <string name="status_doors_open">车门未关！</string>
+    <string name="status_active">已运行：%s</string>
+
+    <string name="exit_confirm_title">退出宠物模式</string>
+    <string name="exit_confirm">确定要退出宠物模式吗？</string>
+
+    <string name="notification_title">宠物模式运行中</string>
+    <string name="notification_text">正在监控车内温度</string>
+
+    <string name="settings_title">设置</string>
+    <string name="settings_pet_name">宠物名称</string>
+    <string name="settings_avatar">头像</string>
+    <string name="settings_temp_unit">温度单位</string>
+    <string name="settings_dark_mode">深色模式</string>
+    <string name="settings_dark_mode_desc">深色背景（从车外不太显眼）</string>
+
+    <string name="avatar_paw">爪印</string>
+    <string name="avatar_dog">狗</string>
+    <string name="avatar_cat">猫</string>
+</resources>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Modo Pet</string>
+
+    <string name="default_pet_name">O seu animal</string>
+    <string name="msg_safe">Não se preocupe! %s está em segurança</string>
+    <string name="msg_ac_on">O ar condicionado está ligado e confortável</string>
+    <string name="msg_ac_off">O ar condicionado está desligado</string>
+    <string name="msg_monitoring">A cuidar do seu animal</string>
+
+    <string name="status_ac_on">AC Ligado</string>
+    <string name="status_ac_off">AC Desligado</string>
+    <string name="status_doors_locked">Portas Trancadas</string>
+    <string name="status_doors_open">Porta Aberta!</string>
+    <string name="status_active">Ativo: %s</string>
+
+    <string name="exit_confirm_title">Sair do Modo Pet</string>
+    <string name="exit_confirm">Tem a certeza que deseja sair do Modo Pet?</string>
+
+    <string name="notification_title">Modo Pet Ativo</string>
+    <string name="notification_text">A monitorizar a temperatura da cabine</string>
+
+    <string name="settings_title">Definições</string>
+    <string name="settings_pet_name">Nome do Animal</string>
+    <string name="settings_avatar">Avatar</string>
+    <string name="settings_temp_unit">Unidade de Temperatura</string>
+    <string name="settings_dark_mode">Modo Escuro</string>
+    <string name="settings_dark_mode_desc">Fundo escuro (menos visível do exterior)</string>
+
+    <string name="avatar_paw">Pata</string>
+    <string name="avatar_dog">Cão</string>
+    <string name="avatar_cat">Gato</string>
+</resources>
