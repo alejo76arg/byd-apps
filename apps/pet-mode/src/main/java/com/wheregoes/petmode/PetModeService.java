@@ -140,6 +140,12 @@ public class PetModeService extends Service implements
     }
 
     @Override
+    public void onAcStateChanged(boolean running) {
+        acOn = running;
+        notifyStateChanged();
+    }
+
+    @Override
     public void onPowerLevelChanged(int level) {
         powerLevel = level;
         notifyStateChanged();

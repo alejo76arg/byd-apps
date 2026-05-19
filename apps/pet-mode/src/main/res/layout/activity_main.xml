@@ -16,21 +16,20 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center_horizontal"
-        android:paddingTop="24dp"
-        android:paddingBottom="24dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
         android:paddingLeft="48dp"
         android:paddingRight="48dp">
 
-        <!-- Top bar: settings + battery -->
+        <!-- Top bar: settings -->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/settings_btn"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_settings"
@@ -44,7 +43,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:textColor="#FF636E7B"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 android:visibility="gone" />
         </RelativeLayout>
 
@@ -56,13 +55,15 @@
             android:orientation="vertical"
             android:gravity="center">
 
-            <!-- Avatar -->
-            <ImageView
+            <!-- Emoji Avatar -->
+            <TextView
                 android:id="@+id/avatar"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@drawable/ic_paw"
-                android:layout_marginBottom="16dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🐾"
+                android:textSize="80sp"
+                android:layout_marginBottom="8dp"
+                android:includeFontPadding="false" />
 
             <!-- Temperature -->
             <LinearLayout
@@ -70,14 +71,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
+                android:layout_marginBottom="8dp">
 
                 <TextView
                     android:id="@+id/temperature"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="--"
-                    android:textSize="120sp"
+                    android:textSize="160sp"
                     android:textColor="#FF1A1A2E"
                     android:fontFamily="sans-serif-thin"
                     android:includeFontPadding="false" />
@@ -87,11 +88,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="°C"
-                    android:textSize="36sp"
+                    android:textSize="48sp"
                     android:textColor="#FF636E7B"
                     android:fontFamily="sans-serif-light"
                     android:layout_marginStart="4dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="24dp"
                     android:layout_gravity="top" />
             </LinearLayout>
 
@@ -100,7 +101,7 @@
                 android:id="@+id/message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="26sp"
+                android:textSize="36sp"
                 android:textColor="#FF1A1A2E"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
@@ -110,7 +111,7 @@
                 android:id="@+id/sub_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textColor="#FF636E7B"
                 android:fontFamily="sans-serif"
                 android:gravity="center" />
@@ -122,50 +123,50 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="12dp">
+            android:layout_marginTop="8dp">
 
             <View
                 android:id="@+id/status_dot"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
                 android:background="@drawable/status_dot"
-                android:layout_marginEnd="8dp" />
+                android:layout_marginEnd="10dp" />
 
             <TextView
                 android:id="@+id/status_ac"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:textColor="#FF636E7B"
                 android:fontFamily="sans-serif-medium" />
 
             <View
                 android:layout_width="1dp"
-                android:layout_height="16dp"
+                android:layout_height="20dp"
                 android:background="#20000000"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp" />
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp" />
 
             <TextView
                 android:id="@+id/status_doors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:textColor="#FF636E7B"
                 android:fontFamily="sans-serif-medium" />
 
             <View
                 android:layout_width="1dp"
-                android:layout_height="16dp"
+                android:layout_height="20dp"
                 android:background="#20000000"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp" />
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp" />
 
             <TextView
                 android:id="@+id/status_timer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="20sp"
                 android:textColor="#FF636E7B"
                 android:fontFamily="sans-serif-medium" />
         </LinearLayout>

@@ -39,6 +39,22 @@ public class BodyworkHandler extends AbsBYDAutoBodyworkListener {
     }
 
     @Override
+    public void onAcStarted() {
+        monitor.acRunning = true;
+        Log.i(TAG, "AC STARTED");
+        VehicleStateMonitor.Listener cb = monitor.getCallback();
+        if (cb != null) cb.onAcStateChanged(true);
+    }
+
+    @Override
+    public void onAcStoped() {
+        monitor.acRunning = false;
+        Log.i(TAG, "AC STOPPED");
+        VehicleStateMonitor.Listener cb = monitor.getCallback();
+        if (cb != null) cb.onAcStateChanged(false);
+    }
+
+    @Override
     public void onBatteryVoltageLevelChanged(int level) {
         monitor.batteryLevel = level;
         Log.i(TAG, "Battery level: " + level);

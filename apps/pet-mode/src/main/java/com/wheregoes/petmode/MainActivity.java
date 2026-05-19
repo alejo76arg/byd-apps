@@ -38,7 +38,7 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
 
     private FrameLayout rootLayout;
     private FrameLayout pawContainer;
-    private ImageView avatarView;
+    private TextView avatarView;
     private TextView tempText;
     private TextView tempUnit;
     private TextView messageText;
@@ -124,8 +124,7 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
         settingsBtn.setOnClickListener(v ->
                 startActivity(new Intent(this, SettingsActivity.class)));
 
-        int avatarRes = getAvatarResource();
-        avatarView.setImageResource(avatarRes);
+        avatarView.setText(getAvatarEmoji());
     }
 
     private void loadTheme() {
@@ -153,8 +152,7 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
             statusDoors.setTextColor(0xFF636E7B);
             statusTimer.setTextColor(0xFF636E7B);
         }
-        int avatarRes = getAvatarResource();
-        avatarView.setImageResource(avatarRes);
+        avatarView.setText(getAvatarEmoji());
     }
 
     private void updateDisplay() {
@@ -221,13 +219,13 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
                 ? PetModeService.UNIT_FAHRENHEIT : PetModeService.UNIT_CELSIUS;
     }
 
-    private int getAvatarResource() {
+    private String getAvatarEmoji() {
         String avatar = getSharedPreferences(PetModeService.PREF_NAME, MODE_PRIVATE)
                 .getString(PetModeService.KEY_AVATAR, "paw");
         switch (avatar) {
-            case "dog": return R.drawable.ic_dog;
-            case "cat": return R.drawable.ic_cat;
-            default: return R.drawable.ic_paw;
+            case "dog": return "🐕";
+            case "cat": return "🐈";
+            default: return "🐾";
         }
     }
 

@@ -88,23 +88,23 @@
                 android:padding="8dp">
                 <View
                     android:id="@+id/avatar_paw_border"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:background="#FFE0E0E0"
-                    android:padding="3dp" />
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@drawable/ic_paw"
-                    android:layout_marginTop="-69dp"
-                    android:padding="8dp" />
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="#FFE0E0E0" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="-80dp"
+                    android:text="🐾"
+                    android:textSize="44sp"
+                    android:gravity="center" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/avatar_paw"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="#FF636E7B"
-                    android:layout_marginTop="4dp" />
+                    android:layout_marginTop="6dp" />
             </LinearLayout>
 
             <!-- Dog -->
@@ -119,23 +119,23 @@
                 android:padding="8dp">
                 <View
                     android:id="@+id/avatar_dog_border"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:background="#FFE0E0E0"
-                    android:padding="3dp" />
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@drawable/ic_dog"
-                    android:layout_marginTop="-69dp"
-                    android:padding="8dp" />
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="#FFE0E0E0" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="-80dp"
+                    android:text="🐕"
+                    android:textSize="44sp"
+                    android:gravity="center" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/avatar_dog"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="#FF636E7B"
-                    android:layout_marginTop="4dp" />
+                    android:layout_marginTop="6dp" />
             </LinearLayout>
 
             <!-- Cat -->
@@ -149,23 +149,23 @@
                 android:padding="8dp">
                 <View
                     android:id="@+id/avatar_cat_border"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:background="#FFE0E0E0"
-                    android:padding="3dp" />
-                <ImageView
-                    android:layout_width="64dp"
-                    android:layout_height="64dp"
-                    android:src="@drawable/ic_cat"
-                    android:layout_marginTop="-69dp"
-                    android:padding="8dp" />
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="#FFE0E0E0" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="-80dp"
+                    android:text="🐈"
+                    android:textSize="44sp"
+                    android:gravity="center" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/avatar_cat"
-                    android:textSize="12sp"
+                    android:textSize="13sp"
                     android:textColor="#FF636E7B"
-                    android:layout_marginTop="4dp" />
+                    android:layout_marginTop="6dp" />
             </LinearLayout>
         </LinearLayout>
 
@@ -240,7 +240,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pet Mode v1.0.0"
+            android:text="Pet Mode v1.2.0"
             android:textSize="13sp"
             android:textColor="#FF9E9E9E"
             android:layout_marginTop="16dp" />

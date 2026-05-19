@@ -14,4 +14,7 @@ public class AbsBYDAutoBodyworkListener implements IBYDAutoListener {
     public void onFuelElecLowPowerChanged(int level) {}
     public void onPowerDayModeChanged(int mode) {}
     public void onHasMessageChanged(int type, int state) {}
+    public void onAcStarted() {}
+    public void onAcStoped() {}
+    public void onAcOnlineStateChanged(int state) {}
 }
