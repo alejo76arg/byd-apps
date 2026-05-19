@@ -293,10 +293,10 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
         statusIconDoors.setColorFilter(iconTint, PorterDuff.Mode.SRC_IN);
 
         int battery = service.getBatteryLevel();
-        if (battery > 0) {
+        if (battery >= 0) {
             statusBattery.setText(getString(R.string.status_battery, battery));
         } else {
-            statusBattery.setText(getString(R.string.status_battery, 0));
+            statusBattery.setText("--");
         }
 
         long millis = service.getActiveMillis();

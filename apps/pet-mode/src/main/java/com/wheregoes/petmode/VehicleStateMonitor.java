@@ -2,6 +2,7 @@ package com.wheregoes.petmode;
 
 import android.content.Context;
 import android.hardware.bydauto.bodywork.BYDAutoBodyworkDevice;
+import android.hardware.bydauto.statistic.BYDAutoStatisticDevice;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -18,6 +19,7 @@ public class VehicleStateMonitor {
     }
 
     private BYDAutoBodyworkDevice device;
+    private BYDAutoStatisticDevice statisticDevice;
     private BodyworkHandler handler;
     private Listener callback;
     private Handler pollHandler;
@@ -41,9 +43,19 @@ public class VehicleStateMonitor {
             handler = new BodyworkHandler(this);
             device.registerListener(handler);
 
+            try {
+                statisticDevice = BYDAutoStatisticDevice.getInstance(new BydPermissionContext(context));
+                double soc = statisticDevice.getElecPercentageValue();
+                batteryLevel = (int) Math.round(soc);
+                Log.i(TAG, "Initial SOC: " + soc + " -> " + batteryLevel + "%");
+            } catch (Throwable t) {
+                Log.e(TAG, "StatisticDevice init failed: " + t.getMessage());
+            }
+
             if (cb != null) {
                 cb.onLockStateChanged(locked);
                 cb.onPowerLevelChanged(powerLevel);
+                cb.onBatteryChanged(batteryLevel);
             }
 
             schedulePoll();
@@ -81,6 +93,15 @@ public class VehicleStateMonitor {
                 powerLevel = newPower;
                 Log.i(TAG, "Poll: power=" + powerLevel);
                 if (callback != null) callback.onPowerLevelChanged(powerLevel);
+            }
+            if (statisticDevice != null) {
+                double soc = statisticDevice.getElecPercentageValue();
+                int newBattery = (int) Math.round(soc);
+                if (newBattery != batteryLevel) {
+                    batteryLevel = newBattery;
+                    Log.i(TAG, "Poll: SOC=" + soc + " -> " + batteryLevel + "%");
+                    if (callback != null) callback.onBatteryChanged(batteryLevel);
+                }
             }
         } catch (Exception e) {
             Log.d(TAG, "Poll failed: " + e.getMessage());
