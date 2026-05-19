@@ -169,9 +169,9 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
                 prefs.getString(PetModeService.KEY_TEMP_UNIT, getDefaultUnit()));
 
         String unitLabel = useFahrenheit ? "°F" : "°C";
-        int temp = service.getCurrentTemp();
-        if (temp != Integer.MIN_VALUE) {
-            int displayTemp = useFahrenheit ? (temp * 9 / 5) + 32 : temp;
+        int acSetTempC = service.getAcSetTemp();
+        if (acSetTempC != Integer.MIN_VALUE) {
+            int displayTemp = useFahrenheit ? (acSetTempC * 9 / 5) + 32 : acSetTempC;
             String oldText = tempText.getText().toString();
             String newText = String.valueOf(displayTemp);
             tempText.setText(newText);
@@ -182,10 +182,10 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
             tempUnit.setText(unitLabel);
         }
 
-        int setTempC = service.getSetTemp();
-        if (setTempC != Integer.MIN_VALUE && service.isAcOn()) {
-            int displaySetTemp = useFahrenheit ? (setTempC * 9 / 5) + 32 : setTempC;
-            acInfoText.setText(getString(R.string.ac_set_to, displaySetTemp, unitLabel));
+        int outsideTempC = service.getOutsideTemp();
+        if (outsideTempC != Integer.MIN_VALUE) {
+            int displayOutside = useFahrenheit ? (outsideTempC * 9 / 5) + 32 : outsideTempC;
+            acInfoText.setText(getString(R.string.outside_temp, displayOutside, unitLabel));
             acInfoText.setVisibility(View.VISIBLE);
         } else {
             acInfoText.setVisibility(View.GONE);

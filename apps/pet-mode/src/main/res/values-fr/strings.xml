@@ -9,7 +9,7 @@
     <string name="msg_ac_off">La climatisation est éteinte</string>
     <string name="msg_monitoring">Surveillance de votre animal</string>
 
-    <string name="ac_set_to">Clim réglée à %1$d%2$s</string>
+    <string name="outside_temp">Extérieur : %1$d%2$s</string>
     <string name="status_ac_on">Clim Activée</string>
     <string name="status_ac_off">Clim Éteinte</string>
     <string name="status_doors_locked">Portes Verrouillées</string>

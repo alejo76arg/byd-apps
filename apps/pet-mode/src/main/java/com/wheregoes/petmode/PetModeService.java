@@ -38,8 +38,8 @@ public class PetModeService extends Service implements
     private Handler handler;
     private long startTime;
 
-    private int currentTemp = Integer.MIN_VALUE;
-    private int setTemp = Integer.MIN_VALUE;
+    private int acSetTemp = Integer.MIN_VALUE;
+    private int outsideTemp = Integer.MIN_VALUE;
     private boolean acOn = false;
     private boolean climateAvailable = false;
     private boolean locked = false;
@@ -99,8 +99,8 @@ public class PetModeService extends Service implements
 
     void setStateCallback(StateCallback cb) { stateCallback = cb; }
 
-    int getCurrentTemp() { return currentTemp; }
-    int getSetTemp() { return setTemp; }
+    int getAcSetTemp() { return acSetTemp; }
+    int getOutsideTemp() { return outsideTemp; }
     boolean isAcOn() { return acOn; }
     boolean isClimateAvailable() { return climateAvailable; }
     boolean isLocked() { return locked; }
@@ -111,21 +111,21 @@ public class PetModeService extends Service implements
     ClimateMonitor getClimateMonitor() { return climateMonitor; }
 
     @Override
-    public void onTemperatureChanged(int tempCelsius) {
-        currentTemp = tempCelsius;
+    public void onSetTempChanged(int tempCelsius) {
+        acSetTemp = tempCelsius;
         climateAvailable = true;
+        notifyStateChanged();
+    }
+
+    @Override
+    public void onOutsideTempChanged(int tempCelsius) {
+        outsideTemp = tempCelsius;
         notifyStateChanged();
     }
 
     @Override
     public void onAcStatusChanged(boolean on) {
         acOn = on;
-        notifyStateChanged();
-    }
-
-    @Override
-    public void onSetTempChanged(int tempCelsius) {
-        setTemp = tempCelsius;
         notifyStateChanged();
     }
 
