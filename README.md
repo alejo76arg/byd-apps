@@ -18,6 +18,9 @@ Built on reverse-engineered BYD APIs — these apps interact directly with the v
 | Platform | DiLink 3.0 (global version) |
 | Android | 10 (API 29) |
 | Architecture | ARM64 (Qualcomm QCM6125) |
+| Tested Firmware | 13.1.32.2507250.1 (Jul 25 2025) |
+
+> **Tested on firmware 13.1.32.2507250.1.** Older versions likely work. Newer firmware updates from BYD may change or break things — no guarantees.
 
 ## Installing Apps on Your BYD
 
