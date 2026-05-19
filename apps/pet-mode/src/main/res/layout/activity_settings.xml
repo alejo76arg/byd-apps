@@ -1,258 +1,378 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/settings_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFF5F7FA">
+    android:layout_height="match_parent">
 
+    <!-- Aurora backdrop -->
+    <View
+        android:id="@+id/aurora_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/aurora_light" />
+
+    <!-- Content -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="32dp">
+        android:paddingStart="@dimen/content_padding_h"
+        android:paddingEnd="@dimen/content_padding_h"
+        android:paddingTop="@dimen/content_padding_v"
+        android:paddingBottom="@dimen/content_padding_v">
 
-        <!-- Header -->
+        <!-- Header: Back + Title -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="32dp">
+            android:layout_marginBottom="@dimen/space_5">
 
-            <ImageView
+            <FrameLayout
                 android:id="@+id/back_btn"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_back"
-                android:padding="4dp"
-                android:background="?android:selectableItemBackgroundBorderless" />
+                android:layout_width="@dimen/chrome_btn_size"
+                android:layout_height="@dimen/chrome_btn_size"
+                android:background="@drawable/glass_chrome_btn"
+                android:elevation="@dimen/elevation_1">
+
+                <ImageView
+                    android:layout_width="@dimen/icon_chrome"
+                    android:layout_height="@dimen/icon_chrome"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_back"
+                    android:tint="@color/slate_700" />
+            </FrameLayout>
 
             <TextView
+                android:id="@+id/settings_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/settings_title"
-                android:textSize="24sp"
-                android:textColor="#FF1A1A2E"
+                android:textSize="@dimen/text_h2"
+                android:textColor="@color/fg_primary"
                 android:fontFamily="sans-serif-medium"
-                android:layout_marginStart="16dp" />
+                android:layout_marginStart="@dimen/space_5" />
         </LinearLayout>
 
-        <!-- Pet Name -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/settings_pet_name"
-            android:textSize="14sp"
-            android:textColor="#FF636E7B"
-            android:textAllCaps="true"
-            android:letterSpacing="0.1"
-            android:layout_marginBottom="8dp" />
-
-        <EditText
-            android:id="@+id/pet_name_input"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/input_background"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textSize="18sp"
-            android:textColor="#FF1A1A2E"
-            android:singleLine="true"
-            android:layout_marginBottom="28dp" />
-
-        <!-- Avatar Selection -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/settings_avatar"
-            android:textSize="14sp"
-            android:textColor="#FF636E7B"
-            android:textAllCaps="true"
-            android:letterSpacing="0.1"
-            android:layout_marginBottom="12dp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="28dp">
-
-            <!-- Paw -->
-            <LinearLayout
-                android:id="@+id/avatar_paw"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginEnd="24dp"
-                android:background="?android:selectableItemBackground"
-                android:padding="8dp">
-                <FrameLayout
-                    android:layout_width="100dp"
-                    android:layout_height="100dp">
-                    <View
-                        android:id="@+id/avatar_paw_border"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#FFE0E0E0" />
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/avatar_paw"
-                        android:scaleType="centerCrop"
-                        android:padding="4dp" />
-                </FrameLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/avatar_paw"
-                    android:textSize="13sp"
-                    android:textColor="#FF636E7B"
-                    android:layout_marginTop="6dp" />
-            </LinearLayout>
-
-            <!-- Dog -->
-            <LinearLayout
-                android:id="@+id/avatar_dog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_marginEnd="24dp"
-                android:background="?android:selectableItemBackground"
-                android:padding="8dp">
-                <FrameLayout
-                    android:layout_width="100dp"
-                    android:layout_height="100dp">
-                    <View
-                        android:id="@+id/avatar_dog_border"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#FFE0E0E0" />
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/avatar_dog"
-                        android:scaleType="centerCrop"
-                        android:padding="4dp" />
-                </FrameLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/avatar_dog"
-                    android:textSize="13sp"
-                    android:textColor="#FF636E7B"
-                    android:layout_marginTop="6dp" />
-            </LinearLayout>
-
-            <!-- Cat -->
-            <LinearLayout
-                android:id="@+id/avatar_cat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="?android:selectableItemBackground"
-                android:padding="8dp">
-                <FrameLayout
-                    android:layout_width="100dp"
-                    android:layout_height="100dp">
-                    <View
-                        android:id="@+id/avatar_cat_border"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#FFE0E0E0" />
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/avatar_cat"
-                        android:scaleType="centerCrop"
-                        android:padding="4dp" />
-                </FrameLayout>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/avatar_cat"
-                    android:textSize="13sp"
-                    android:textColor="#FF636E7B"
-                    android:layout_marginTop="6dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Temperature Unit -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/settings_temp_unit"
-            android:textSize="14sp"
-            android:textColor="#FF636E7B"
-            android:textAllCaps="true"
-            android:letterSpacing="0.1"
-            android:layout_marginBottom="8dp" />
-
-        <RadioGroup
-            android:id="@+id/temp_unit_group"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginBottom="28dp">
-
-            <RadioButton
-                android:id="@+id/unit_celsius"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°C — Celsius"
-                android:textSize="16sp"
-                android:layout_marginEnd="32dp" />
-
-            <RadioButton
-                android:id="@+id/unit_fahrenheit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="°F — Fahrenheit"
-                android:textSize="16sp" />
-        </RadioGroup>
-
-        <!-- Theme Toggle -->
+        <!-- Two-column body -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="28dp">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
+            <!-- LEFT COLUMN: Name + Avatar -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginEnd="@dimen/space_5">
+
+                <!-- Pet Name row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/glass_setting_row"
+                    android:elevation="@dimen/elevation_1"
+                    android:padding="@dimen/setting_row_padding_h"
+                    android:layout_marginBottom="@dimen/space_3">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_pet_name"
+                        android:textSize="@dimen/text_caption"
+                        android:textColor="@color/fg_secondary"
+                        android:textAllCaps="true"
+                        android:letterSpacing="0.1"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="@dimen/space_3" />
+
+                    <EditText
+                        android:id="@+id/pet_name_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/glass_input"
+                        android:paddingStart="@dimen/input_padding_h"
+                        android:paddingEnd="@dimen/input_padding_h"
+                        android:paddingTop="@dimen/input_padding_v"
+                        android:paddingBottom="@dimen/input_padding_v"
+                        android:textSize="@dimen/text_body_l"
+                        android:textColor="@color/fg_primary"
+                        android:fontFamily="sans-serif-medium"
+                        android:singleLine="true" />
+                </LinearLayout>
+
+                <!-- Avatar row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/glass_setting_row"
+                    android:elevation="@dimen/elevation_1"
+                    android:padding="@dimen/setting_row_padding_h">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/settings_avatar"
+                        android:textSize="@dimen/text_caption"
+                        android:textColor="@color/fg_secondary"
+                        android:textAllCaps="true"
+                        android:letterSpacing="0.1"
+                        android:fontFamily="sans-serif-medium"
+                        android:layout_marginBottom="@dimen/space_4" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Paw tile -->
+                        <LinearLayout
+                            android:id="@+id/avatar_paw"
+                            android:layout_width="@dimen/avatar_tile_size"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="@dimen/space_3"
+                            android:layout_marginEnd="@dimen/space_3">
+
+                            <FrameLayout
+                                android:layout_width="@dimen/avatar_tile_img_size"
+                                android:layout_height="@dimen/avatar_tile_img_size">
+                                <View
+                                    android:id="@+id/avatar_paw_border"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/glass_avatar_tile" />
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/avatar_paw"
+                                    android:scaleType="centerInside"
+                                    android:padding="8dp" />
+                            </FrameLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/avatar_paw"
+                                android:textSize="@dimen/text_body_s"
+                                android:textColor="@color/fg_secondary"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="@dimen/space_2" />
+                        </LinearLayout>
+
+                        <!-- Dog tile -->
+                        <LinearLayout
+                            android:id="@+id/avatar_dog"
+                            android:layout_width="@dimen/avatar_tile_size"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="@dimen/space_3"
+                            android:layout_marginEnd="@dimen/space_3">
+
+                            <FrameLayout
+                                android:layout_width="@dimen/avatar_tile_img_size"
+                                android:layout_height="@dimen/avatar_tile_img_size">
+                                <View
+                                    android:id="@+id/avatar_dog_border"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/glass_avatar_tile" />
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/avatar_dog"
+                                    android:scaleType="centerInside"
+                                    android:padding="8dp" />
+                            </FrameLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/avatar_dog"
+                                android:textSize="@dimen/text_body_s"
+                                android:textColor="@color/fg_secondary"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="@dimen/space_2" />
+                        </LinearLayout>
+
+                        <!-- Cat tile -->
+                        <LinearLayout
+                            android:id="@+id/avatar_cat"
+                            android:layout_width="@dimen/avatar_tile_size"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:padding="@dimen/space_3">
+
+                            <FrameLayout
+                                android:layout_width="@dimen/avatar_tile_img_size"
+                                android:layout_height="@dimen/avatar_tile_img_size">
+                                <View
+                                    android:id="@+id/avatar_cat_border"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/glass_avatar_tile" />
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:src="@drawable/avatar_cat"
+                                    android:scaleType="centerInside"
+                                    android:padding="8dp" />
+                            </FrameLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/avatar_cat"
+                                android:textSize="@dimen/text_body_s"
+                                android:textColor="@color/fg_secondary"
+                                android:fontFamily="sans-serif-medium"
+                                android:layout_marginTop="@dimen/space_2" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- RIGHT COLUMN: Unit + Theme + Version -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
+                <!-- Temperature unit row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/glass_setting_row"
+                    android:elevation="@dimen/elevation_1"
+                    android:paddingStart="@dimen/setting_row_padding_h"
+                    android:paddingEnd="@dimen/setting_row_padding_h"
+                    android:paddingTop="@dimen/setting_row_padding_v"
+                    android:paddingBottom="@dimen/setting_row_padding_v"
+                    android:layout_marginBottom="@dimen/space_3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_temp_unit"
+                            android:textSize="@dimen/text_h4"
+                            android:textColor="@color/fg_primary"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_temp_unit_desc"
+                            android:textSize="@dimen/text_body_s"
+                            android:textColor="@color/fg_secondary" />
+                    </LinearLayout>
+
+                    <!-- Segmented control -->
+                    <LinearLayout
+                        android:id="@+id/temp_unit_group"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/glass_segmented_bg"
+                        android:padding="@dimen/segmented_padding">
+
+                        <TextView
+                            android:id="@+id/unit_celsius"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="°C"
+                            android:textSize="@dimen/text_body"
+                            android:textColor="@color/fg_primary"
+                            android:fontFamily="sans-serif-medium"
+                            android:background="@drawable/glass_segmented_active"
+                            android:paddingStart="@dimen/segmented_btn_padding_h"
+                            android:paddingEnd="@dimen/segmented_btn_padding_h"
+                            android:paddingTop="@dimen/segmented_btn_padding_v"
+                            android:paddingBottom="@dimen/segmented_btn_padding_v" />
+
+                        <TextView
+                            android:id="@+id/unit_fahrenheit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="°F"
+                            android:textSize="@dimen/text_body"
+                            android:textColor="@color/fg_secondary"
+                            android:fontFamily="sans-serif-medium"
+                            android:paddingStart="@dimen/segmented_btn_padding_h"
+                            android:paddingEnd="@dimen/segmented_btn_padding_h"
+                            android:paddingTop="@dimen/segmented_btn_padding_v"
+                            android:paddingBottom="@dimen/segmented_btn_padding_v" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Dark mode row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/glass_setting_row"
+                    android:elevation="@dimen/elevation_1"
+                    android:paddingStart="@dimen/setting_row_padding_h"
+                    android:paddingEnd="@dimen/setting_row_padding_h"
+                    android:paddingTop="@dimen/setting_row_padding_v"
+                    android:paddingBottom="@dimen/setting_row_padding_v"
+                    android:layout_marginBottom="@dimen/space_3">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_dark_mode"
+                            android:textSize="@dimen/text_h4"
+                            android:textColor="@color/fg_primary"
+                            android:fontFamily="sans-serif-medium" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/settings_dark_mode_desc"
+                            android:textSize="@dimen/text_body_s"
+                            android:textColor="@color/fg_secondary" />
+                    </LinearLayout>
+
+                    <Switch
+                        android:id="@+id/theme_toggle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:thumb="@drawable/glass_switch_thumb"
+                        android:track="@drawable/glass_switch_track_off" />
+                </LinearLayout>
+
+                <!-- Version info -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/settings_dark_mode"
-                    android:textSize="16sp"
-                    android:textColor="#FF1A1A2E" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/settings_dark_mode_desc"
-                    android:textSize="13sp"
-                    android:textColor="#FF636E7B" />
+                    android:text="@string/settings_version"
+                    android:textSize="@dimen/text_micro"
+                    android:textColor="@color/fg_tertiary"
+                    android:layout_marginStart="@dimen/space_2"
+                    android:layout_marginTop="@dimen/space_4" />
             </LinearLayout>
-
-            <Switch
-                android:id="@+id/theme_toggle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
         </LinearLayout>
-
-        <!-- Version info -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pet Mode v1.6.0"
-            android:textSize="13sp"
-            android:textColor="#FF9E9E9E"
-            android:layout_marginTop="16dp" />
-
     </LinearLayout>
-</ScrollView>
+</FrameLayout>

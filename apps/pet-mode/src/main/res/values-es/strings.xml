@@ -10,6 +10,9 @@
     <string name="msg_monitoring">Cuidando a tu mascota</string>
 
     <string name="outside_temp">Exterior: %1$d%2$s</string>
+    <string name="outside_temp_pill">%1$d%2$s exterior</string>
+    <string name="outside_temp_pill_unknown">-- exterior</string>
+    <string name="set_temperature">Temperatura configurada</string>
     <string name="status_ac_on">AC Encendido</string>
     <string name="status_ac_off">AC Apagado</string>
     <string name="status_car_off">Coche Apagado</string>
@@ -18,7 +21,8 @@
     <string name="status_doors_locked">Puertas Cerradas</string>
     <string name="status_doors_unlocked">Puertas Abiertas</string>
     <string name="status_doors_open">¡Puerta Abierta!</string>
-    <string name="status_active">Activo: %s</string>
+    <string name="status_active">Activo %s</string>
+    <string name="exit_im_back">Volví ←</string>
 
     <string name="exit_confirm_title">Salir del Modo Mascota</string>
     <string name="exit_confirm">¿Seguro que quieres salir del Modo Mascota?</string>
@@ -31,7 +35,9 @@
     <string name="settings_avatar">Avatar</string>
     <string name="settings_temp_unit">Unidad de Temperatura</string>
     <string name="settings_dark_mode">Modo Oscuro</string>
-    <string name="settings_dark_mode_desc">Fondo oscuro (menos visible desde fuera)</string>
+    <string name="settings_dark_mode_desc">Pantalla discreta — menos visible desde fuera</string>
+    <string name="settings_temp_unit_desc">Cambiar entre Celsius y Fahrenheit</string>
+    <string name="settings_version">Pet Mode v2.0.0  ·  BYD Dolphin · DiLink 3.0</string>
 
     <string name="avatar_paw">Pata</string>
     <string name="avatar_dog">Perro</string>

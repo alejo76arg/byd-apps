@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -37,21 +38,31 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
     private Random random = new Random();
 
     private FrameLayout rootLayout;
+    private View auroraBg;
     private FrameLayout pawContainer;
+    private FrameLayout avatarDisc;
     private ImageView avatarView;
     private TextView tempText;
     private TextView tempUnit;
     private TextView acInfoText;
+    private TextView outsideTempText;
+    private ImageView outsideTempIcon;
     private TextView messageText;
     private TextView subMessageText;
+    private View statusCapsule;
+    private View statusItemAc;
     private TextView statusAc;
     private TextView statusDoors;
     private TextView statusTimer;
     private TextView statusBattery;
-    private View batteryDivider;
-    private TextView safetyAlert;
+    private ImageView statusIconAc;
+    private ImageView statusIconDoors;
+    private ImageView statusIconBattery;
+    private ImageView statusIconTimer;
+    private View safetyAlert;
     private View settingsBtn;
-    private View statusDot;
+    private ImageView settingsIcon;
+    private View exitBtn;
     private int originalBrightnessMode = -1;
     private boolean isDarkMode = false;
 
@@ -67,7 +78,6 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
         applyTheme();
         startPawAnimation();
         startAvatarAnimation();
-        startStatusDotAnimation();
         startTimerUpdate();
         startService();
     }
@@ -93,6 +103,15 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
 
     @Override
     public void onBackPressed() {
+        showExitDialog();
+    }
+
+    @Override
+    public void onStateUpdated() {
+        handler.post(this::updateDisplay);
+    }
+
+    private void showExitDialog() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.exit_confirm_title)
                 .setMessage(R.string.exit_confirm)
@@ -106,31 +125,38 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
                 .show();
     }
 
-    @Override
-    public void onStateUpdated() {
-        handler.post(this::updateDisplay);
-    }
-
     private void bindViews() {
         rootLayout = findViewById(R.id.root_layout);
+        auroraBg = findViewById(R.id.aurora_bg);
         pawContainer = findViewById(R.id.paw_container);
+        avatarDisc = findViewById(R.id.avatar_disc);
         avatarView = findViewById(R.id.avatar);
         tempText = findViewById(R.id.temperature);
         tempUnit = findViewById(R.id.temp_unit);
+        acInfoText = findViewById(R.id.ac_info);
+        outsideTempText = findViewById(R.id.outside_temp_text);
+        outsideTempIcon = findViewById(R.id.outside_temp_icon);
         messageText = findViewById(R.id.message);
         subMessageText = findViewById(R.id.sub_message);
+        statusCapsule = findViewById(R.id.status_capsule);
+        statusItemAc = findViewById(R.id.status_item_ac);
         statusAc = findViewById(R.id.status_ac);
         statusDoors = findViewById(R.id.status_doors);
         statusTimer = findViewById(R.id.status_timer);
-        acInfoText = findViewById(R.id.ac_info);
         statusBattery = findViewById(R.id.status_battery);
-        batteryDivider = findViewById(R.id.battery_divider);
+        statusIconAc = findViewById(R.id.status_icon_ac);
+        statusIconDoors = findViewById(R.id.status_icon_doors);
+        statusIconBattery = findViewById(R.id.status_icon_battery);
+        statusIconTimer = findViewById(R.id.status_icon_timer);
         safetyAlert = findViewById(R.id.safety_alert);
         settingsBtn = findViewById(R.id.settings_btn);
-        statusDot = findViewById(R.id.status_dot);
+        settingsIcon = findViewById(R.id.settings_icon);
+        exitBtn = findViewById(R.id.exit_btn);
 
         settingsBtn.setOnClickListener(v ->
                 startActivity(new Intent(this, SettingsActivity.class)));
+
+        exitBtn.setOnClickListener(v -> showExitDialog());
 
         avatarView.setImageResource(getAvatarDrawable());
     }
@@ -141,29 +167,53 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
     }
 
     private void applyTheme() {
+        int fgPrimary;
+        int fgSecondary;
+        int iconTint;
+
         if (isDarkMode) {
-            rootLayout.setBackgroundColor(0xFF0A0E1A);
-            tempText.setTextColor(Color.WHITE);
-            tempUnit.setTextColor(0xFFB0B8C8);
-            acInfoText.setTextColor(0xFFB0B8C8);
-            messageText.setTextColor(Color.WHITE);
-            subMessageText.setTextColor(0xFFB0B8C8);
-            statusAc.setTextColor(0xFFB0B8C8);
-            statusDoors.setTextColor(0xFFB0B8C8);
-            statusBattery.setTextColor(0xFFB0B8C8);
-            statusTimer.setTextColor(0xFFB0B8C8);
+            auroraBg.setBackgroundResource(R.drawable.aurora_dark);
+            fgPrimary = Color.WHITE;
+            fgSecondary = 0xB8FFFFFF;
+            iconTint = Color.WHITE;
+
+            settingsBtn.setBackgroundResource(R.drawable.glass_chrome_btn);
+            statusCapsule.setBackgroundResource(R.drawable.glass_status_capsule);
+
+            statusItemAc.setBackgroundResource(R.drawable.glass_status_item_active);
+
+            exitBtn.setBackgroundResource(R.drawable.glass_exit_btn);
         } else {
-            rootLayout.setBackgroundColor(0xFFF5F7FA);
-            tempText.setTextColor(0xFF1A1A2E);
-            tempUnit.setTextColor(0xFF636E7B);
-            acInfoText.setTextColor(0xFF636E7B);
-            messageText.setTextColor(0xFF1A1A2E);
-            subMessageText.setTextColor(0xFF636E7B);
-            statusAc.setTextColor(0xFF636E7B);
-            statusDoors.setTextColor(0xFF636E7B);
-            statusBattery.setTextColor(0xFF636E7B);
-            statusTimer.setTextColor(0xFF636E7B);
+            auroraBg.setBackgroundResource(R.drawable.aurora_light);
+            fgPrimary = 0xFF1A1A2E;
+            fgSecondary = 0xFF636E7B;
+            iconTint = 0xFF232830;
+
+            settingsBtn.setBackgroundResource(R.drawable.glass_chrome_btn);
+            statusCapsule.setBackgroundResource(R.drawable.glass_status_capsule);
+            statusItemAc.setBackgroundResource(R.drawable.glass_status_item_active);
+            exitBtn.setBackgroundResource(R.drawable.glass_exit_btn);
         }
+
+        tempText.setTextColor(fgPrimary);
+        tempUnit.setTextColor(fgSecondary);
+        acInfoText.setTextColor(fgSecondary);
+        messageText.setTextColor(fgPrimary);
+        subMessageText.setTextColor(fgSecondary);
+        statusAc.setTextColor(fgPrimary);
+        statusDoors.setTextColor(fgPrimary);
+        statusBattery.setTextColor(fgPrimary);
+        statusTimer.setTextColor(fgPrimary);
+        outsideTempText.setTextColor(fgPrimary);
+        ((TextView) exitBtn).setTextColor(fgPrimary);
+
+        settingsIcon.setColorFilter(iconTint, PorterDuff.Mode.SRC_IN);
+        outsideTempIcon.setColorFilter(iconTint, PorterDuff.Mode.SRC_IN);
+        statusIconAc.setColorFilter(iconTint, PorterDuff.Mode.SRC_IN);
+        statusIconDoors.setColorFilter(iconTint, PorterDuff.Mode.SRC_IN);
+        statusIconBattery.setColorFilter(iconTint, PorterDuff.Mode.SRC_IN);
+        statusIconTimer.setColorFilter(iconTint, PorterDuff.Mode.SRC_IN);
+
         avatarView.setImageResource(getAvatarDrawable());
     }
 
@@ -193,10 +243,9 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
         int outsideTempC = service.getOutsideTemp();
         if (outsideTempC != Integer.MIN_VALUE) {
             int displayOutside = useFahrenheit ? (outsideTempC * 9 / 5) + 32 : outsideTempC;
-            acInfoText.setText(getString(R.string.outside_temp, displayOutside, unitLabel));
-            acInfoText.setVisibility(View.VISIBLE);
+            outsideTempText.setText(getString(R.string.outside_temp_pill, displayOutside, unitLabel));
         } else {
-            acInfoText.setVisibility(View.GONE);
+            outsideTempText.setText(getString(R.string.outside_temp_pill_unknown));
         }
 
         if (hasPetName) {
@@ -214,42 +263,40 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
         }
 
         int power = service.getPowerLevel();
+        boolean acOn = service.isAcOn();
         if (power == 0) {
             statusAc.setText(R.string.status_car_off);
-            statusAc.setTextColor(0xFFE74C3C);
-        } else if (service.isAcOn()) {
+            statusItemAc.setBackgroundResource(0);
+        } else if (acOn) {
             statusAc.setText(R.string.status_ac_on);
-            statusAc.setTextColor(0xFF27AE60);
+            statusItemAc.setBackgroundResource(R.drawable.glass_status_item_active);
         } else {
             statusAc.setText(R.string.status_ac_off);
-            statusAc.setTextColor(0xFFF39C12);
+            statusItemAc.setBackgroundResource(0);
         }
 
-        boolean acAlert = service.isClimateAvailable() && !service.isAcOn();
+        boolean acAlert = service.isClimateAvailable() && !acOn;
         safetyAlert.setVisibility(acAlert ? View.VISIBLE : View.GONE);
 
         if (service.isAnyDoorOpen()) {
             statusDoors.setText(R.string.status_doors_open);
-            statusDoors.setTextColor(0xFFE74C3C);
+            statusIconDoors.setImageResource(R.drawable.ic_unlock);
         } else if (service.isLocked()) {
             statusDoors.setText(R.string.status_doors_locked);
-            statusDoors.setTextColor(0xFF27AE60);
+            statusIconDoors.setImageResource(R.drawable.ic_lock);
         } else {
             statusDoors.setText(R.string.status_doors_unlocked);
-            statusDoors.setTextColor(0xFFF39C12);
+            statusIconDoors.setImageResource(R.drawable.ic_unlock);
         }
+
+        int iconTint = isDarkMode ? Color.WHITE : 0xFF232830;
+        statusIconDoors.setColorFilter(iconTint, PorterDuff.Mode.SRC_IN);
 
         int battery = service.getBatteryLevel();
         if (battery > 0) {
             statusBattery.setText(getString(R.string.status_battery, battery));
-            if (battery > 50) statusBattery.setTextColor(0xFF27AE60);
-            else if (battery > 20) statusBattery.setTextColor(0xFFF39C12);
-            else statusBattery.setTextColor(0xFFE74C3C);
-            statusBattery.setVisibility(View.VISIBLE);
-            batteryDivider.setVisibility(View.VISIBLE);
         } else {
-            statusBattery.setVisibility(View.GONE);
-            batteryDivider.setVisibility(View.GONE);
+            statusBattery.setText(getString(R.string.status_battery, 0));
         }
 
         long millis = service.getActiveMillis();
@@ -349,14 +396,6 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
         avatarView.startAnimation(bob);
     }
 
-    private void startStatusDotAnimation() {
-        AlphaAnimation breathe = new AlphaAnimation(0.4f, 1.0f);
-        breathe.setDuration(1500);
-        breathe.setRepeatMode(Animation.REVERSE);
-        breathe.setRepeatCount(Animation.INFINITE);
-        statusDot.startAnimation(breathe);
-    }
-
     private void startPawAnimation() {
         schedulePawSpawn(1000);
     }
@@ -379,7 +418,7 @@ public class MainActivity extends Activity implements PetModeService.StateCallba
         lp.gravity = Gravity.TOP | Gravity.START;
         paw.setAlpha(0f);
         paw.setRotation(random.nextInt(40) - 20);
-        int tint = isDarkMode ? 0x3300D4AA : 0x2200B894;
+        int tint = isDarkMode ? 0x0FFFFFFF : 0x1A008264;
         paw.setColorFilter(tint);
         pawContainer.addView(paw, lp);
 

@@ -2,34 +2,139 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#FFF5F7FA">
+    android:layout_height="match_parent">
 
+    <!-- Aurora backdrop -->
+    <View
+        android:id="@+id/aurora_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/aurora_light" />
+
+    <!-- Floating paw prints -->
     <FrameLayout
         android:id="@+id/paw_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipChildren="false" />
 
+    <!-- Safety alert pill (top center, hidden by default) -->
+    <LinearLayout
+        android:id="@+id/safety_alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/safety_alert_bg"
+        android:elevation="@dimen/elevation_2"
+        android:paddingStart="@dimen/alert_padding_h"
+        android:paddingEnd="@dimen/alert_padding_h"
+        android:paddingTop="@dimen/alert_padding_v"
+        android:paddingBottom="@dimen/alert_padding_v"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/icon_alert"
+            android:layout_height="@dimen/icon_alert"
+            android:src="@drawable/ic_warning"
+            android:layout_marginEnd="12dp" />
+
+        <TextView
+            android:id="@+id/safety_alert_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/alert_ac_off"
+            android:textSize="@dimen/text_safety_alert"
+            android:textColor="#FFFFFFFF"
+            android:fontFamily="sans-serif-bold"
+            android:letterSpacing="0.04"
+            android:textAllCaps="true" />
+    </LinearLayout>
+
+    <!-- Top chrome: outside temp pill (left) + settings btn (right) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/content_padding_v"
+        android:paddingStart="@dimen/content_padding_h"
+        android:paddingEnd="@dimen/content_padding_h">
+
+        <!-- Outside temperature pill -->
+        <LinearLayout
+            android:id="@+id/outside_temp_pill"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/glass_pill"
+            android:elevation="@dimen/elevation_1"
+            android:paddingStart="@dimen/pill_padding_h"
+            android:paddingEnd="@dimen/pill_padding_h"
+            android:paddingTop="@dimen/pill_padding_v"
+            android:paddingBottom="@dimen/pill_padding_v">
+
+            <ImageView
+                android:id="@+id/outside_temp_icon"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:src="@drawable/ic_clock"
+                android:layout_marginEnd="10dp" />
+
+            <TextView
+                android:id="@+id/outside_temp_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_body_l"
+                android:textColor="@color/fg_primary"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Settings button -->
+        <FrameLayout
+            android:id="@+id/settings_btn"
+            android:layout_width="@dimen/chrome_btn_size"
+            android:layout_height="@dimen/chrome_btn_size"
+            android:background="@drawable/glass_chrome_btn"
+            android:elevation="@dimen/elevation_1">
+
+            <ImageView
+                android:id="@+id/settings_icon"
+                android:layout_width="@dimen/icon_chrome"
+                android:layout_height="@dimen/icon_chrome"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_settings"
+                android:tint="@color/slate_700" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Main content: temp (left) + avatar/message (right) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="center"
-        android:paddingTop="12dp"
-        android:paddingBottom="12dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp">
+        android:paddingStart="@dimen/content_padding_h"
+        android:paddingEnd="@dimen/content_padding_h"
+        android:paddingTop="@dimen/space_8"
+        android:paddingBottom="@dimen/space_9">
 
-        <!-- Left: Temperature area -->
+        <!-- Left: Temperature display -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center">
 
-            <!-- Temperature -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,8 +146,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="--"
-                    android:textSize="240sp"
-                    android:textColor="#FF1A1A2E"
+                    android:textSize="@dimen/text_display_xl"
+                    android:textColor="@color/fg_primary"
                     android:fontFamily="sans-serif-thin"
                     android:includeFontPadding="false" />
 
@@ -51,175 +156,225 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="°C"
-                    android:textSize="64sp"
-                    android:textColor="#FF636E7B"
-                    android:fontFamily="sans-serif-light"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginTop="32dp" />
+                    android:textSize="@dimen/text_temp_unit"
+                    android:textColor="@color/fg_secondary"
+                    android:fontFamily="sans-serif-thin"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="18dp" />
             </LinearLayout>
 
-            <!-- AC set temp info -->
             <TextView
                 android:id="@+id/ac_info"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="26sp"
-                android:textColor="#FF636E7B"
+                android:text="@string/set_temperature"
+                android:textSize="@dimen/text_temp_sub"
+                android:textColor="@color/fg_secondary"
                 android:fontFamily="sans-serif"
                 android:gravity="center"
-                android:layout_marginTop="4dp"
-                android:visibility="gone" />
+                android:layout_marginTop="3dp"
+                android:visibility="visible" />
         </LinearLayout>
 
-        <!-- Right: Message + status area -->
+        <!-- Right: Avatar + Reassurance -->
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center">
 
-            <!-- Settings button (top-right) -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/settings_btn"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_settings"
-                    android:padding="4dp"
-                    android:background="?android:selectableItemBackgroundBorderless" />
-            </RelativeLayout>
-
-            <!-- Avatar + Message -->
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
+            <!-- Glass avatar disc -->
+            <FrameLayout
+                android:id="@+id/avatar_disc"
+                android:layout_width="@dimen/avatar_disc_size"
+                android:layout_height="@dimen/avatar_disc_size"
+                android:background="@drawable/glass_avatar_disc"
+                android:elevation="@dimen/elevation_2">
 
                 <ImageView
                     android:id="@+id/avatar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="280dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:src="@drawable/avatar_paw"
-                    android:scaleType="fitCenter"
-                    android:adjustViewBounds="true"
-                    android:layout_marginBottom="8dp" />
+                    android:scaleType="centerInside"
+                    android:padding="16dp" />
+            </FrameLayout>
 
-                <TextView
-                    android:id="@+id/message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="44sp"
-                    android:textColor="#FF1A1A2E"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="center"
-                    android:layout_marginBottom="8dp" />
+            <!-- Reassurance message -->
+            <TextView
+                android:id="@+id/message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_reassure_msg"
+                android:textColor="@color/fg_primary"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center"
+                android:layout_marginTop="18dp"
+                android:maxWidth="400dp" />
 
-                <TextView
-                    android:id="@+id/sub_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="26sp"
-                    android:textColor="#FF636E7B"
-                    android:fontFamily="sans-serif"
-                    android:gravity="center" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/sub_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_reassure_sub"
+                android:textColor="@color/fg_secondary"
+                android:fontFamily="sans-serif"
+                android:gravity="center"
+                android:layout_marginTop="10dp" />
+        </LinearLayout>
+    </LinearLayout>
 
+    <!-- Status bar capsule (bottom center) -->
+    <LinearLayout
+        android:id="@+id/status_capsule"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="20dp"
+        android:orientation="horizontal"
+        android:background="@drawable/glass_status_capsule"
+        android:elevation="@dimen/elevation_2"
+        android:padding="@dimen/status_bar_padding">
+
+        <!-- AC status item -->
+        <LinearLayout
+            android:id="@+id/status_item_ac"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/glass_status_item_active"
+            android:paddingStart="@dimen/status_bar_item_padding_h"
+            android:paddingEnd="@dimen/status_bar_item_padding_h"
+            android:paddingTop="@dimen/status_bar_item_padding_v"
+            android:paddingBottom="@dimen/status_bar_item_padding_v"
+            android:layout_marginEnd="@dimen/space_1">
+
+            <ImageView
+                android:id="@+id/status_icon_ac"
+                android:layout_width="@dimen/icon_status"
+                android:layout_height="@dimen/icon_status"
+                android:src="@drawable/ic_snowflake"
+                android:layout_marginEnd="@dimen/status_bar_item_gap"
+                android:alpha="0.7" />
+
+            <TextView
+                android:id="@+id/status_ac"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_status"
+                android:textColor="@color/fg_primary"
+                android:fontFamily="sans-serif-medium" />
         </LinearLayout>
 
+        <!-- Doors status item -->
+        <LinearLayout
+            android:id="@+id/status_item_doors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/status_bar_item_padding_h"
+            android:paddingEnd="@dimen/status_bar_item_padding_h"
+            android:paddingTop="@dimen/status_bar_item_padding_v"
+            android:paddingBottom="@dimen/status_bar_item_padding_v"
+            android:layout_marginEnd="@dimen/space_1">
+
+            <ImageView
+                android:id="@+id/status_icon_doors"
+                android:layout_width="@dimen/icon_status"
+                android:layout_height="@dimen/icon_status"
+                android:src="@drawable/ic_lock"
+                android:layout_marginEnd="@dimen/status_bar_item_gap"
+                android:alpha="0.7" />
+
+            <TextView
+                android:id="@+id/status_doors"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_status"
+                android:textColor="@color/fg_primary"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
+
+        <!-- Battery status item -->
+        <LinearLayout
+            android:id="@+id/status_item_battery"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/status_bar_item_padding_h"
+            android:paddingEnd="@dimen/status_bar_item_padding_h"
+            android:paddingTop="@dimen/status_bar_item_padding_v"
+            android:paddingBottom="@dimen/status_bar_item_padding_v"
+            android:layout_marginEnd="@dimen/space_1">
+
+            <ImageView
+                android:id="@+id/status_icon_battery"
+                android:layout_width="@dimen/icon_status"
+                android:layout_height="@dimen/icon_status"
+                android:src="@drawable/ic_battery"
+                android:layout_marginEnd="@dimen/status_bar_item_gap"
+                android:alpha="0.7" />
+
+            <TextView
+                android:id="@+id/status_battery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_status"
+                android:textColor="@color/fg_primary"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
+
+        <!-- Timer status item -->
+        <LinearLayout
+            android:id="@+id/status_item_timer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/status_bar_item_padding_h"
+            android:paddingEnd="@dimen/status_bar_item_padding_h"
+            android:paddingTop="@dimen/status_bar_item_padding_v"
+            android:paddingBottom="@dimen/status_bar_item_padding_v">
+
+            <ImageView
+                android:id="@+id/status_icon_timer"
+                android:layout_width="@dimen/icon_status"
+                android:layout_height="@dimen/icon_status"
+                android:src="@drawable/ic_clock"
+                android:layout_marginEnd="@dimen/status_bar_item_gap"
+                android:alpha="0.7" />
+
+            <TextView
+                android:id="@+id/status_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_status"
+                android:textColor="@color/fg_primary"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- Status bar (full width, bottom) -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_gravity="bottom"
-        android:paddingBottom="16dp"
-        android:paddingTop="8dp">
-
-        <View
-            android:id="@+id/status_dot"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:background="@drawable/status_dot"
-            android:layout_marginEnd="10dp" />
-
-        <TextView
-            android:id="@+id/status_ac"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="32sp"
-            android:textColor="#FF636E7B"
-            android:fontFamily="sans-serif-medium" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="32dp"
-            android:background="#20000000"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp" />
-
-        <TextView
-            android:id="@+id/status_doors"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="32sp"
-            android:textColor="#FF636E7B"
-            android:fontFamily="sans-serif-medium" />
-
-        <View
-            android:layout_width="1dp"
-            android:layout_height="32dp"
-            android:background="#20000000"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp" />
-
-        <TextView
-            android:id="@+id/status_battery"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="32sp"
-            android:textColor="#FF636E7B"
-            android:fontFamily="sans-serif-medium"
-            android:visibility="gone" />
-
-        <View
-            android:id="@+id/battery_divider"
-            android:layout_width="1dp"
-            android:layout_height="32dp"
-            android:background="#20000000"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/status_timer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="32sp"
-            android:textColor="#FF636E7B"
-            android:fontFamily="sans-serif-medium" />
-    </LinearLayout>
+    <!-- Exit button (bottom right) -->
     <TextView
-        android:id="@+id/safety_alert"
-        android:layout_width="match_parent"
+        android:id="@+id/exit_btn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/alert_ac_off"
-        android:textSize="36sp"
-        android:textColor="#FFFFFFFF"
-        android:background="#FFE74C3C"
-        android:gravity="center"
-        android:padding="16dp"
-        android:fontFamily="sans-serif-bold"
-        android:layout_gravity="top"
-        android:visibility="gone" />
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="@dimen/content_padding_h"
+        android:layout_marginBottom="22dp"
+        android:text="@string/exit_im_back"
+        android:textSize="@dimen/text_body"
+        android:textColor="@color/fg_primary"
+        android:fontFamily="sans-serif-medium"
+        android:background="@drawable/glass_exit_btn"
+        android:elevation="@dimen/elevation_1"
+        android:paddingStart="@dimen/exit_btn_padding_h"
+        android:paddingEnd="@dimen/exit_btn_padding_h"
+        android:paddingTop="@dimen/exit_btn_padding_v"
+        android:paddingBottom="@dimen/exit_btn_padding_v" />
 
 </FrameLayout>
