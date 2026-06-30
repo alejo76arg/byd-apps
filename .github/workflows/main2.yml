@@ -1,0 +1,51 @@
+# .github/workflows/build.yml
+name: Build door-sound APK
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'apps/door-sound/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install platform 29 + build-tools
+        run: |
+          yes | sdkmanager --licenses || true
+          sdkmanager "platforms;android-29" "build-tools;34.0.0"
+          echo "$ANDROID_HOME/build-tools/34.0.0" >> $GITHUB_PATH
+
+      - name: Place android.jar
+        run: |
+          mkdir -p /tmp/android-10
+          cp $ANDROID_HOME/platforms/android-29/android.jar /tmp/android-10/android.jar
+           - name: Symlink build tools to expected paths
+        run: |
+          sudo ln -sf $ANDROID_HOME/build-tools/34.0.0/aapt2 /usr/bin/aapt2
+          sudo ln -sf $ANDROID_HOME/build-tools/34.0.0/d8 /usr/bin/d8
+          sudo ln -sf $ANDROID_HOME/build-tools/34.0.0/apksigner /usr/bin/apksigner
+
+      - name: Build APK
+        working-directory: apps/door-sound
+        run: |
+          chmod +x build.sh
+          ./build.sh
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: door-sound-apk
+          path: apps/door-sound/build/door-sound.apk
