@@ -33,6 +33,8 @@ jobs:
           mkdir -p /tmp/android-10
           cp $ANDROID_HOME/platforms/android-29/android.jar /tmp/android-10/android.jar
            - name: Symlink build tools to expected paths
+           
+       - name: Symlink build tools to expected paths
         run: |
           sudo ln -sf $ANDROID_HOME/build-tools/34.0.0/aapt2 /usr/bin/aapt2
           sudo ln -sf $ANDROID_HOME/build-tools/34.0.0/d8 /usr/bin/d8
