@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <path
+        android:fillColor="#FF101820"
+        android:pathData="M0,0h48v48H0z" />
+    <!-- pedal -->
+    <path
+        android:fillColor="#FFE85D2C"
+        android:pathData="M14,34 L14,18 C14,15.8 15.8,14 18,14 L22,14 C24.2,14 26,15.8 26,18 L26,34 Z" />
+    <!-- needle / gauge -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFE85D2C"
+        android:strokeWidth="2.5"
+        android:pathData="M30,30 A10,10 0 0 0 30,14" />
+    <!-- speed lines -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF4A9EFF"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.8"
+        android:pathData="M32,12 L40,8" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF4A9EFF"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.6"
+        android:pathData="M34,18 L42,16" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FF4A9EFF"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.4"
+        android:pathData="M34,24 L42,24" />
+</vector>

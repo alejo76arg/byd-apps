@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Engine Sound</string>
+    <string name="title_start">Iniciar</string>
+    <string name="title_stop">Detener</string>
+    <string name="title_autostart">Iniciar con el auto</string>
+    <string name="status_stopped">Detenido</string>
+    <string name="status_running">Corriendo</string>
+    <string name="notification_channel_name">Engine Sound</string>
+    <string name="notification_text">Simulando motor según velocidad</string>
+</resources>
