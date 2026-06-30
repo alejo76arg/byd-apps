@@ -36,6 +36,9 @@ public class EngineSoundService extends Service implements LocationListener {
 
     public static final String ACTION_START = "com.alejo.enginesound.START";
     public static final String ACTION_STOP = "com.alejo.enginesound.STOP";
+    public static final String ACTION_SPEED_UPDATE = "com.alejo.enginesound.SPEED_UPDATE";
+    public static final String EXTRA_SPEED_KMH = "speed_kmh";
+    public static final String EXTRA_SOURCE = "source";
 
     public static final String PREFS_NAME = "engine_sound_prefs";
     public static final String PREF_MAX_SPEED_KMH = "max_speed_kmh";
@@ -65,6 +68,7 @@ public class EngineSoundService extends Service implements LocationListener {
 
     private LocationManager locationManager;
     private MediaPlayer mediaPlayer;
+    private Location lastLocation;
 
     @Override
     public void onCreate() {
@@ -134,18 +138,37 @@ public class EngineSoundService extends Service implements LocationListener {
             }
 
             if (locationManager != null) {
-                try {
-                    locationManager.requestLocationUpdates(
-                            LocationManager.GPS_PROVIDER, 200L, 0f, this);
-                } catch (SecurityException se) {
-                    Log.e(TAG, "Falta permiso de ubicación", se);
+                boolean hasPermission = checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                        == android.content.pm.PackageManager.PERMISSION_GRANTED;
+                if (!hasPermission) {
+                    Log.e(TAG, "Permiso de ubicación NO concedido. Andá a Ajustes > Apps > Engine Sound > Permisos.");
+                    return;
                 }
-                try {
-                    // Fallback con red/celda mientras el GPS puro fija señal
-                    locationManager.requestLocationUpdates(
-                            LocationManager.NETWORK_PROVIDER, 200L, 0f, this);
-                } catch (Exception ignored) {
-                    // No todos los head units tienen NETWORK_PROVIDER habilitado, no es crítico
+
+                boolean gpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                boolean networkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+                Log.d(TAG, "Providers disponibles: GPS=" + gpsEnabled + " NETWORK=" + networkEnabled);
+
+                if (!gpsEnabled && !networkEnabled) {
+                    Log.e(TAG, "Ningún provider de ubicación está habilitado en el sistema. Activá Ubicación en Ajustes.");
+                    return;
+                }
+
+                if (gpsEnabled) {
+                    try {
+                        locationManager.requestLocationUpdates(
+                                LocationManager.GPS_PROVIDER, 200L, 0f, this);
+                    } catch (SecurityException se) {
+                        Log.e(TAG, "Falta permiso de ubicación", se);
+                    }
+                }
+                if (networkEnabled) {
+                    try {
+                        locationManager.requestLocationUpdates(
+                                LocationManager.NETWORK_PROVIDER, 200L, 0f, this);
+                    } catch (Exception ignored) {
+                        // No todos los head units tienen NETWORK_PROVIDER habilitado, no es crítico
+                    }
                 }
             }
         } catch (Exception e) {
@@ -172,21 +195,46 @@ public class EngineSoundService extends Service implements LocationListener {
         }
         smoothedSpeedKmh = 0f;
         lastSpeedKmh = 0f;
+        lastLocation = null;
+        lastUpdateTimeMs = 0L;
     }
 
     @Override
     public void onLocationChanged(Location location) {
         long now = System.currentTimeMillis();
 
-        float rawSpeedKmh;
-        if (location.hasSpeed()) {
-            rawSpeedKmh = location.getSpeed() * 3.6f; // m/s -> km/h
-        } else if (lastUpdateTimeMs != 0) {
-            // Fallback si el dispositivo no reporta speed directamente
+        // Descartamos fixes de muy mala precisión (rebotes típicos en cocheras/túneles)
+        if (location.hasAccuracy() && location.getAccuracy() > 60f) {
+            Log.d(TAG, "Fix descartado por baja precisión: " + location.getAccuracy() + "m");
             return;
+        }
+
+        float rawSpeedKmh;
+        String speedSource;
+
+        if (location.hasSpeed() && location.getSpeed() > 0.3f) {
+            // Vía Doppler del chip GPS, la más precisa cuando está disponible
+            rawSpeedKmh = location.getSpeed() * 3.6f;
+            speedSource = "doppler";
+        } else if (lastLocation != null) {
+            // Fallback: derivamos velocidad de la distancia entre dos fixes.
+            // Muchos head units/chips NO completan el campo speed de forma
+            // confiable, así que este fallback es el que termina haciendo
+            // el trabajo pesado en la práctica.
+            float distanceMeters = lastLocation.distanceTo(location);
+            float dtSeconds = (now - lastUpdateTimeMs) / 1000f;
+            rawSpeedKmh = (dtSeconds > 0.1f) ? (distanceMeters / dtSeconds) * 3.6f : lastSpeedKmh;
+            speedSource = "distancia/tiempo";
         } else {
             rawSpeedKmh = 0f;
+            speedSource = "sin referencia previa";
         }
+
+        // Recorte de outliers imposibles (rebote de GPS en cocheras, etc.)
+        rawSpeedKmh = clamp(rawSpeedKmh, 0f, 220f);
+
+        Log.d(TAG, String.format("speed=%.1fkm/h source=%s acc=%.0fm hasSpeed=%b",
+                rawSpeedKmh, speedSource, location.getAccuracy(), location.hasSpeed()));
 
         // Suavizado exponencial
         smoothedSpeedKmh = smoothedSpeedKmh + SMOOTHING_ALPHA * (rawSpeedKmh - smoothedSpeedKmh);
@@ -201,10 +249,20 @@ public class EngineSoundService extends Service implements LocationListener {
                 }
             }
         }
+        lastLocation = location;
         lastUpdateTimeMs = now;
         lastSpeedKmh = rawSpeedKmh;
 
         applyEngineSound(smoothedSpeedKmh, now < kickUntilMs);
+        broadcastDebugState(smoothedSpeedKmh, speedSource);
+    }
+
+    private void broadcastDebugState(float speedKmh, String source) {
+        Intent intent = new Intent(ACTION_SPEED_UPDATE);
+        intent.putExtra(EXTRA_SPEED_KMH, speedKmh);
+        intent.putExtra(EXTRA_SOURCE, source);
+        intent.setPackage(getPackageName());
+        sendBroadcast(intent);
     }
 
     private void applyEngineSound(float speedKmh, boolean kicking) {

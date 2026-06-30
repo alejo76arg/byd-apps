@@ -2,7 +2,10 @@ package com.alejo.enginesound;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -11,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -22,6 +26,15 @@ public class MainActivity extends Activity {
     private SeekBar seekMaxPitch;
     private SeekBar seekMinVolume;
     private CheckBox checkAutostart;
+
+    private final BroadcastReceiver speedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            float speed = intent.getFloatExtra(EngineSoundService.EXTRA_SPEED_KMH, 0f);
+            String source = intent.getStringExtra(EngineSoundService.EXTRA_SOURCE);
+            textSpeed.setText(String.format("%.0f km/h (%s)", speed, source));
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +79,19 @@ public class MainActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        IntentFilter filter = new IntentFilter(EngineSoundService.ACTION_SPEED_UPDATE);
+        registerReceiver(speedReceiver, filter);
         updateStatusLabel();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        try {
+            unregisterReceiver(speedReceiver);
+        } catch (IllegalArgumentException ignored) {
+            // no estaba registrado, no pasa nada
+        }
     }
 
     private void loadPrefsIntoUi() {
@@ -107,6 +132,18 @@ public class MainActivity extends Activity {
     }
 
     private void startEngineService() {
+        android.location.LocationManager lm =
+                (android.location.LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        boolean locationEnabled = lm != null && (
+                lm.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)
+                        || lm.isProviderEnabled(android.location.LocationManager.NETWORK_PROVIDER));
+
+        if (!locationEnabled) {
+            Toast.makeText(this, "Activá la ubicación del sistema primero", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            return;
+        }
+
         Intent intent = new Intent(this, EngineSoundService.class);
         intent.setAction(EngineSoundService.ACTION_START);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

@@ -61,6 +61,44 @@ Desde la pantalla principal:
 - **Volumen base**: volumen en ralentí/parado (default 30%). El volumen
   máximo está fijo en 100%.
 
+## Troubleshooting: "no detecta la velocidad"
+
+Esto pasaba por tres motivos posibles, ya corregidos en el código:
+
+1. **`Location.hasSpeed()` devolvía `false`** en tu head unit. No todos los
+   chips GPS automotrices llenan ese campo de forma confiable (depende del
+   firmware del GNSS). El service ahora calcula velocidad como fallback por
+   `distancia/tiempo` entre dos fixes consecutivos cuando el campo speed no
+   viene poblado — en la práctica este fallback es el que termina haciendo
+   el trabajo real en la mayoría de los head units.
+2. **No había feedback visual.** El campo de velocidad en la pantalla
+   principal ahora se actualiza en vivo (con la fuente del dato: `doppler` o
+   `distancia/tiempo`), así podés confirmar si está llegando algo o no sin
+   mirar logcat.
+3. **Permiso o GPS del sistema apagado, fallando en silencio.** Ahora la
+   app te avisa con un Toast y te lleva directo a Ajustes > Ubicación si
+   está desactivada, y el service loguea explícitamente si falta el permiso.
+
+Si después de esto sigue sin andar, conectá por ADB y mirá el log en vivo
+mientras manejás:
+
+```bash
+adb logcat -s EngineSoundService
+```
+
+Vas a ver líneas como:
+```
+D EngineSoundService: speed=23.4km/h source=distancia/tiempo acc=12m hasSpeed=false
+```
+
+Si no aparece nada ni con el auto en movimiento, lo más probable es que:
+- El permiso de ubicación no está concedido (revisalo en Ajustes > Apps).
+- El head unit tiene la ubicación del sistema completamente apagada a nivel
+  Android (no solo en la app de mapas).
+- El GPS interno del DiLink no expone un provider estándar de Android — en
+  ese caso habría que investigar si BYD tiene su propio HAL de ubicación
+  (similar al caso de AVAS), lo cual sería tema de otro reversing.
+
 ## Build
 
 ```bash
